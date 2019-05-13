@@ -24,3 +24,12 @@ $router->post('/test2',"TestController@test2");
 $router->post('/test3',"TestController@test3");
 //非对称 -》签名
 $router->post('/test4',"TestController@test4");
+
+
+
+//注册
+$router->post('/regist',"Regist\RegistController@regist");
+//登录
+$router->post('/login',"Regist\RegistController@login");
+
+$router->post('/test_t',"Regist\RegistController@test_t");
