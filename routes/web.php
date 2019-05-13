@@ -14,3 +14,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+//凯撒密码
+$router->get('/test1',"TestController@test1");
+//对称加密
+$router->get('/test',"TestController@test");
+$router->post('/test2',"TestController@test2");
+
+//非对称 -》加密
+$router->post('/test3',"TestController@test3");
+//非对称 -》签名
+$router->post('/test4',"TestController@test4");
