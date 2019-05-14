@@ -14,6 +14,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+<<<<<<< HEAD
 //凯撒密码
 $router->get('/test1',"TestController@test1");
 //对称加密
@@ -33,3 +34,8 @@ $router->post('/regist',"Regist\RegistController@regist");
 $router->post('/login',"Regist\RegistController@login");
 
 $router->post('/test_t',"Regist\RegistController@test_t");
+=======
+$router->get('/info', function () use ($router) {
+    return phpinfo();
+});
+>>>>>>> 2b5afc32e9382bd2d3028db3622437b0c0ae077a
