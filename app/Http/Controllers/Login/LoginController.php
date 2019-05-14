@@ -107,7 +107,7 @@ class LoginController extends BaseController
             ];
         }else{
             //查询信息
-            $userinfo = UserApi::where('id',$id)->column('username');
+            $userinfo = UserApi::where('id',$id)->first();
             if(!$userinfo){
                 $arr = [
                     'num'=>2,
@@ -116,7 +116,7 @@ class LoginController extends BaseController
             }else{
                 $arr = [
                     'num'=>1,
-                    'msg'=>'hello '.$userinfo,
+                    'msg'=>'hello '.$userinfo->username,
                 ];
             }
         }
