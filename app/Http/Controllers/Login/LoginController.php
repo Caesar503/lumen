@@ -92,11 +92,34 @@ class LoginController extends BaseController
 
     public function userinfo()
     {
-        header('Access-Control-Allow-Origin:http://127.0.0.1:8848');
+        header('Access-Control-Allow-Origin:*');
         header('Access-Control-Allow-Method:OPTIONS,GET,POST');
         header('Access-Control-Allow-Headers:x-requested-with');
-        $token = $_GET['token'];
-        $id = $_GET['id'];
-        echo json_encode(['a'=>1,'b'=>2]);
+        $token = $_POST['token'];
+        $id = $_POST['id'];
+
+        $k = 'token_'.$id;
+        $aa = Redis::get($k);
+        if($aa!=$token){
+            $arr = [
+                'num'=>2,
+                'msg'=>'无效的token',
+            ];
+        }else{
+            //查询信息
+            $userinfo = UserApi::where('id',$id)->column('username');
+            if(!$userinfo){
+                $arr = [
+                    'num'=>2,
+                    'msg'=>'请先登录',
+                ];
+            }else{
+                $arr = [
+                    'num'=>1,
+                    'msg'=>'hello '.$userinfo,
+                ];
+            }
+        }
+        echo json_encode($arr);
     }
 }
