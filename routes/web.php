@@ -42,4 +42,4 @@ $router->get('/info', function () use ($router) {
 
 
 //登录
-$router->post('/h_login',"Login\LoginController@login");
+$router->get('/h_login',"Login\LoginController@login");
