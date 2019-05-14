@@ -31,8 +31,9 @@ class LoginController extends BaseController
     {
 //        $data = file_get_contents("php://input");
 //        dd($data);
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
+        $email = $_GET['email'];
+        $pass = $_GET['pass'];
+        echo $email;die;
         $e = UserApi::where('email',$email)->first();
         if($e){
             if(!password_verify($pass,$e['pass']))
