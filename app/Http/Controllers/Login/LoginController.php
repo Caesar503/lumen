@@ -27,10 +27,11 @@ class LoginController extends BaseController
             echo "注册失败";
         }
     }
+
+
     public function login(Request $request)
     {
-//        $data = file_get_contents("php://input");
-//        dd($data);
+        header("Access-Control-Allow-Origin:*");
         $email = $_POST['email'];
         $pass = $_POST['pass'];
 //        echo $email;die;
@@ -48,23 +49,19 @@ class LoginController extends BaseController
             {
                 //生成token
                 $token = $this->token($e['id']);
-                //存储cookie
-                //setcookie('token',$token,time()+3600*24*7,"/","1809.com",false,true);
 
-                //存储Redis
-//                $k = 'token_'.$e['id'];
+
+//                存储Redis
+                $k = 'token_'.$e['id'];
 //                $k = 'token_';
-//
-//                $r = [
-//                    'token'=>$token,
-//                    'name'=>$e['username']
-//                ];
-//                Redis::set($k,json_encode($r));
-//                Redis::expire($k,3600*24*7);
+                Redis::set($k,$token);
+                Redis::expire($k,3600*24*7);
+
                 $arr = [
                     'num'=>1,
                     'error'=>"登陆成功",
-                    'token'=>$token
+                    'token'=>$token,
+                    'id'=>$e['id'],
                 ];
                 echo json_encode($arr);
                 die;
@@ -91,5 +88,15 @@ class LoginController extends BaseController
         }else{
             echo "eiyou";
         }
+    }
+
+    public function userinfo()
+    {
+        header('Access-Control-Allow-Origin:http://127.0.0.1:8848');
+        header('Access-Control-Allow-Method:OPTIONS,GET,POST');
+        header('Access-Control-Allow-Headers:x-requested-with');
+        $token = $_GET['token'];
+        $id = $_GET['id'];
+        echo json_encode(['a'=>1,'b'=>2]);
     }
 }

@@ -43,3 +43,11 @@ $router->get('/info', function () use ($router) {
 
 //登录
 $router->post('/h_login',"Login\LoginController@login");
+
+
+
+$router->post('/get/userinfo',"Login\LoginController@userinfo");
+//获取个人中心
+//$router->get('/get/userinfo',['middleware'=>'core',function(){
+//    'Login\LoginController@userinfo';
+//}]);
