@@ -33,12 +33,17 @@ class LoginController extends BaseController
 //        dd($data);
         $email = $_POST['email'];
         $pass = $_POST['pass'];
-        echo $email;die;
+//        echo $email;die;
         $e = UserApi::where('email',$email)->first();
         if($e){
             if(!password_verify($pass,$e['pass']))
             {
-                die('密码不正确');
+                $arr = [
+                    'num'=>2,
+                    'error'=>"密码错误"
+                ];
+                echo json_encode($arr);
+                die;
             }else
             {
                 //生成token
@@ -48,19 +53,30 @@ class LoginController extends BaseController
 
                 //存储Redis
 //                $k = 'token_'.$e['id'];
-                $k = 'token_';
-
-                $r = [
-                    'token'=>$token,
-                    'name'=>$e['username']
+//                $k = 'token_';
+//
+//                $r = [
+//                    'token'=>$token,
+//                    'name'=>$e['username']
+//                ];
+//                Redis::set($k,json_encode($r));
+//                Redis::expire($k,3600*24*7);
+                $arr = [
+                    'num'=>1,
+                    'error'=>"登陆成功",
+                    'token'=>$token
                 ];
-                Redis::set($k,json_encode($r));
-                Redis::expire($k,3600*24*7);
-                die('登陆成功');
+                echo json_encode($arr);
+                die;
             }
         }else
         {
-            die('邮箱不存在');
+            $arr = [
+                'num'=>2,
+                'error'=>"邮箱错误"
+            ];
+            echo json_encode($arr);
+            die;
         }
     }
     function token($id)
