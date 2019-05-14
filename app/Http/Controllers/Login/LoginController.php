@@ -29,36 +29,38 @@ class LoginController extends BaseController
     }
     public function login(Request $request)
     {
-        $data = file_get_contents("php://input");
-        dd($data);
-//        $e = UserApi::where('email',$arr['email'])->first();
-//        if($e){
-//            if(!password_verify($arr['pass'],$e['pass']))
-//            {
-//                die('密码不正确');
-//            }else
-//            {
-//                //生成token
-//                $token = $this->token($e['id']);
-//                //存储cookie
-//                //setcookie('token',$token,time()+3600*24*7,"/","1809.com",false,true);
-//
-//                //存储Redis
-////                $k = 'token_'.$e['id'];
-//                $k = 'token_';
-//
-//                $r = [
-//                    'token'=>$token,
-//                    'name'=>$e['username']
-//                ];
-//                Redis::set($k,json_encode($r));
-//                Redis::expire($k,3600*24*7);
-//                die('登陆成功');
-//            }
-//        }else
-//        {
-//            die('邮箱不存在');
-//        }
+//        $data = file_get_contents("php://input");
+//        dd($data);
+        $email = $_POST['email'];
+        $pass = $_POST['pass'];
+        $e = UserApi::where('email',$email)->first();
+        if($e){
+            if(!password_verify($pass,$e['pass']))
+            {
+                die('密码不正确');
+            }else
+            {
+                //生成token
+                $token = $this->token($e['id']);
+                //存储cookie
+                //setcookie('token',$token,time()+3600*24*7,"/","1809.com",false,true);
+
+                //存储Redis
+//                $k = 'token_'.$e['id'];
+                $k = 'token_';
+
+                $r = [
+                    'token'=>$token,
+                    'name'=>$e['username']
+                ];
+                Redis::set($k,json_encode($r));
+                Redis::expire($k,3600*24*7);
+                die('登陆成功');
+            }
+        }else
+        {
+            die('邮箱不存在');
+        }
     }
     function token($id)
     {
