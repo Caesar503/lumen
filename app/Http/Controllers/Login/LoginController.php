@@ -38,11 +38,12 @@ class LoginController extends BaseController
         if($e){
             if(!password_verify($pass,$e['pass']))
             {
-                $arr = [
-                    'num'=>2,
-                    'error'=>"密码错误"
-                ];
-                echo json_encode($arr);
+                echo 1111;
+//                $arr = [
+//                    'num'=>2,
+//                    'error'=>"密码错误"
+//                ];
+//                echo json_encode($arr);
                 die;
             }else
             {
