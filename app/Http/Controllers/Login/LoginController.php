@@ -31,8 +31,8 @@ class LoginController extends BaseController
     {
 //        $data = file_get_contents("php://input");
 //        dd($data);
-        $email = $_GET['email'];
-        $pass = $_GET['pass'];
+        $email = $_POST['email'];
+        $pass = $_POST['pass'];
         echo $email;die;
         $e = UserApi::where('email',$email)->first();
         if($e){
