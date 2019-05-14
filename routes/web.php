@@ -38,3 +38,8 @@ $router->get('/info', function () use ($router) {
     return phpinfo();
 });
 
+
+
+
+//登录
+$router->post('/h_login',"Login\LoginController@login");
