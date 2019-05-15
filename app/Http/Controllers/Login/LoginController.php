@@ -31,10 +31,8 @@ class LoginController extends BaseController
 
     public function login(Request $request)
     {
-        header("Access-Control-Allow-Origin:*");
         $email = $_POST['email'];
         $pass = $_POST['pass'];
-//        echo $email;die;
         $e = UserApi::where('email',$email)->first();
         if($e){
             if(!password_verify($pass,$e['pass']))
@@ -92,20 +90,18 @@ class LoginController extends BaseController
 
     public function userinfo()
     {
-        header('Access-Control-Allow-Origin:*');
-        header('Access-Control-Allow-Method:OPTIONS,GET,POST');
-        header('Access-Control-Allow-Headers:x-requested-with');
-        $token = $_POST['token'];
+//        header('Access-Control-Allow-Origin:*');
+//        header('Access-Control-Allow-Method:OPTIONS,GET,POST');
+//        header('Access-Control-Allow-Headers:x-requested-with');
         $id = $_POST['id'];
-
-        $k = 'token_'.$id;
-        $aa = Redis::get($k);
-        if($aa!=$token){
-            $arr = [
-                'num'=>2,
-                'msg'=>'无效的token',
-            ];
-        }else{
+//        $k = 'token_'.$id;
+//        $aa = Redis::get($k);
+//        if($aa!=$token){
+//            $arr = [
+//                'num'=>2,
+//                'msg'=>'无效的token',
+//            ];
+//        }else{
             //查询信息
             $userinfo = UserApi::where('id',$id)->first();
             if(!$userinfo){
@@ -119,7 +115,7 @@ class LoginController extends BaseController
                     'msg'=>'hello '.$userinfo->username,
                 ];
             }
-        }
+//        }
         echo json_encode($arr);
     }
 }

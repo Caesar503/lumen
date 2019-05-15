@@ -46,8 +46,13 @@ $router->post('/h_login',"Login\LoginController@login");
 
 
 
-$router->post('/get/userinfo',"Login\LoginController@userinfo");
-//获取个人中心
-//$router->get('/get/userinfo',['middleware'=>'core',function(){
-//    'Login\LoginController@userinfo';
+//$router->post('/get/userinfo',"Login\LoginController@userinfo");
+
+//$router->post('/get/userinfo',['middleware'=>'token',function(){
+//    "Login\LoginController@userinfo";
 //}]);
+//获取个人中心
+$router->group(['middleware' => 'token1'], function () use ($router) {
+    $router->post('/get/userinfo', 'Login\LoginController@userinfo');
+
+});
