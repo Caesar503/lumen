@@ -33,46 +33,62 @@ class LoginController extends BaseController
     {
         $email = $_POST['email'];
         $pass = $_POST['pass'];
-        $e = UserApi::where('email',$email)->first();
-        if($e){
-            if(!password_verify($pass,$e['pass']))
-            {
-                $arr = [
-                    'num'=>2,
-                    'error'=>"密码错误"
-                ];
-                echo json_encode($arr);
-                die;
-            }else
-            {
-                //生成token
-                $token = $this->token($e['id']);
 
-
-//                存储Redis
-                $k = 'token_'.$e['id'];
-//                $k = 'token_';
-                Redis::set($k,$token);
-                Redis::expire($k,3600*24*7);
-
-                $arr = [
-                    'num'=>1,
-                    'error'=>"登陆成功",
-                    'token'=>$token,
-                    'id'=>$e['id'],
-                ];
-                echo json_encode($arr);
-                die;
-            }
-        }else
-        {
-            $arr = [
-                'num'=>2,
-                'error'=>"邮箱错误"
-            ];
-            echo json_encode($arr);
-            die;
-        }
+        $data= [
+            'email'=>$email,
+            'pass'=>$pass
+        ];
+        //创建一个curl资源
+        $ch = curl_init();
+        $url = "http://laravel2.1809.com/login";
+        curl_setopt($ch,CURLOPT_URL,$url); //url
+        curl_setopt($ch,CURLOPT_POST,1);//post
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);//不在浏览器上显示
+        curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($data));//传输数据
+        curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-Type:text/plain']); //header头 -》传输内容类型
+        $res = curl_exec($ch);
+        $code = curl_errno($ch);
+        echo $res;
+//        $e = UserApi::where('email',$email)->first();
+//        if($e){
+//            if(!password_verify($pass,$e['pass']))
+//            {
+//                $arr = [
+//                    'num'=>2,
+//                    'error'=>"密码错误"
+//                ];
+//                echo json_encode($arr);
+//                die;
+//            }else
+//            {
+//                //生成token
+//                $token = $this->token($e['id']);
+//
+//
+////                存储Redis
+//                $k = 'token_'.$e['id'];
+////                $k = 'token_';
+//                Redis::set($k,$token);
+//                Redis::expire($k,3600*24*7);
+//
+//                $arr = [
+//                    'num'=>1,
+//                    'error'=>"登陆成功",
+//                    'token'=>$token,
+//                    'id'=>$e['id'],
+//                ];
+//                echo json_encode($arr);
+//                die;
+//            }
+//        }else
+//        {
+//            $arr = [
+//                'num'=>2,
+//                'error'=>"邮箱错误"
+//            ];
+//            echo json_encode($arr);
+//            die;
+//        }
     }
     function token($id)
     {
@@ -117,5 +133,25 @@ class LoginController extends BaseController
             }
 //        }
         echo json_encode($arr);
+    }
+
+
+    public function aaaa()
+    {
+        $data= [
+            'email'=>'zzz@zzz.com',
+            'pass'=>'zzzzzz'
+        ];
+        //创建一个curl资源
+        $ch = curl_init();
+        $url = "http://laravel2.1809.com/login";
+        curl_setopt($ch,CURLOPT_URL,$url); //url
+        curl_setopt($ch,CURLOPT_POST,1);//post
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);//不在浏览器上显示
+        curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($data));//传输数据
+        curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-Type:text/plain']); //header头 -》传输内容类型
+        $res = curl_exec($ch);
+        $code = curl_errno($ch);
+        echo $res;
     }
 }

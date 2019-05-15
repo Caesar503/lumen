@@ -45,6 +45,9 @@ $router->get('/info', function () use ($router) {
 $router->post('/h_login',"Login\LoginController@login");
 
 
+$router->get('/aaaa',"Login\LoginController@aaaa");
+
+
 
 //$router->post('/get/userinfo',"Login\LoginController@userinfo");
 
