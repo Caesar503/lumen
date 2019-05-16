@@ -43,6 +43,7 @@ $router->get('/info', function () use ($router) {
 
 //登录
 $router->post('/h_login',"Login\LoginController@login");
+$router->post('/h_regist',"Login\LoginController@h_regist");
 
 
 $router->get('/aaaa',"Login\LoginController@aaaa");

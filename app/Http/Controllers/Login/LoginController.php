@@ -154,4 +154,21 @@ class LoginController extends BaseController
         $code = curl_errno($ch);
         echo $res;
     }
+
+    public function h_regist()
+    {
+
+        $data= $_POST;
+        //创建一个curl资源
+        $ch = curl_init();
+        $url = "http://laravel2.1809.com/regist";
+        curl_setopt($ch,CURLOPT_URL,$url); //url
+        curl_setopt($ch,CURLOPT_POST,1);//post
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);//不在浏览器上显示
+        curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($data));//传输数据
+        curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-Type:text/plain']); //header头 -》传输内容类型
+        $res = curl_exec($ch);
+        $code = curl_errno($ch);
+        echo $res;
+    }
 }
