@@ -41,17 +41,6 @@ class LoginController extends BaseController
 //        $url = "http://laravel2.1809.com/login";
         $url = "http://passport.zjdgz.com/login";
         echo $this->curl_post($url,$data);
-        //创建一个curl资源
-//        $ch = curl_init();
-//        curl_setopt($ch,CURLOPT_URL,$url); //url
-//        curl_setopt($ch,CURLOPT_POST,1);//post
-//        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);//不在浏览器上显示
-//        curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($data));//传输数据
-//        curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-Type:text/plain']); //header头 -》传输内容类型
-//        $res = curl_exec($ch);
-//        $code = curl_errno($ch);
-//        echo $res;
-
     }
     function token($id)
     {
@@ -69,19 +58,7 @@ class LoginController extends BaseController
 
     public function userinfo()
     {
-//        header('Access-Control-Allow-Origin:*');
-//        header('Access-Control-Allow-Method:OPTIONS,GET,POST');
-//        header('Access-Control-Allow-Headers:x-requested-with');
         $id = $_POST['id'];
-//        $k = 'token_'.$id;
-//        $aa = Redis::get($k);
-//        if($aa!=$token){
-//            $arr = [
-//                'num'=>2,
-//                'msg'=>'无效的token',
-//            ];
-//        }else{
-            //查询信息
             $userinfo = UserApi::where('id',$id)->first();
             if(!$userinfo){
                 $arr = [
@@ -94,7 +71,6 @@ class LoginController extends BaseController
                     'msg'=>'hello '.$userinfo->username,
                 ];
             }
-//        }
         echo json_encode($arr);
     }
 

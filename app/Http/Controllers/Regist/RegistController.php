@@ -35,7 +35,6 @@ class RegistController extends BaseController
         //解密
         $private_k = openssl_get_privatekey("file://".storage_path("app/keys/rsa_private_key.pem"));
         openssl_private_decrypt($arr_data,$json_data,$private_k);
-//        dump($json_data);
         $arr = json_decode($json_data,true);
 
         $e = UserApi::where('email',$arr['email'])->first();
