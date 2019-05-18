@@ -51,12 +51,25 @@ $router->get('/aaaa',"Login\LoginController@aaaa");
 
 
 //$router->post('/get/userinfo',"Login\LoginController@userinfo");
+$router->get('/addCart/', 'Goods\GoodsController@test');
 
-//$router->post('/get/userinfo',['middleware'=>'token',function(){
-//    "Login\LoginController@userinfo";
-//}]);
+
+$router->get('/cart', 'Cart\CartController@cart');
+
 //获取个人中心
 $router->group(['middleware' => 'token1'], function () use ($router) {
+    //个人中心
     $router->post('/get/userinfo', 'Login\LoginController@userinfo');
-
+    //商品列表
+    $router->post('/goodsinfo', 'Goods\GoodsController@goodsinfo');
+    //添加购物车
+    $router->post('/addCart', 'Goods\GoodsController@addCart');
+    //商品详情
+    $router->post('/goodsDetail', 'Goods\GoodsController@goodsDetail');
+    //购物车列表
+    $router->post('/cartList', 'Cart\CartController@cartList');
+    //生成订单
+    $router->post('/createOrder', 'Cart\CartController@createOrder');
+    //订单列表
+    $router->post('/orderList', 'Cart\CartController@orderList');
 });
