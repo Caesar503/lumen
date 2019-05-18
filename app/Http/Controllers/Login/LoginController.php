@@ -38,7 +38,8 @@ class LoginController extends BaseController
             'email'=>$email,
             'pass'=>$pass
         ];
-        $url = "http://laravel2.1809.com/login";
+//        $url = "http://laravel2.1809.com/login";
+        $url = "http://passport.zjdgz.com/login";
         echo $this->curl_post($url,$data);
         //创建一个curl资源
 //        $ch = curl_init();
@@ -121,7 +122,8 @@ class LoginController extends BaseController
     public function h_regist()
     {
         $data= $_POST;
-        $url = "http://laravel2.1809.com/regist";
+//        $url = "http://laravel2.1809.com/regist";
+        $url = "http://passport.zjdgz.com/regist";
         echo $this->curl_post($url,$data);
     }
     //curl
